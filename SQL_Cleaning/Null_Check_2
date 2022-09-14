@@ -1,0 +1,13 @@
+-- Null check for columns other than stations name/id
+SELECT  
+  ride_id,
+  started_at,
+  ended_at,
+  start_lat,
+  start_lng,
+  end_lat,
+  end_lng,
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_raw`
+WHERE
+  ride_id is null OR started_at is Null OR ended_at IS NULL OR start_lat IS NULL OR start_lng is NULL OR end_lat is NULL OR end_lng IS NULL
