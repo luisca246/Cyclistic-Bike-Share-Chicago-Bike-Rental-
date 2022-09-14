@@ -1,0 +1,8 @@
+-- We want to analyze meaningful trips. Those longer than 0 minutes but shorter than 24 hours since there's a penalty for having a bike for a period longer to 24 hours.
+
+SELECT  
+  *
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_raw`
+WHERE
+  TIMESTAMP_DIFF(ended_at, started_at, MINUTE) < 1440 AND TIMESTAMP_DIFF(ended_at, started_at, MINUTE) > 0
