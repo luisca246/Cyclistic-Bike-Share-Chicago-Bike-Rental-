@@ -1,0 +1,31 @@
+-- Monthly bike usage
+SELECT  
+  EXTRACT(MONTH FROM started_at) as index, -- The index column helps sort the data chronologically
+  member_casual,
+  CASE
+  WHEN EXTRACT(MONTH FROM started_at) = 1 THEN "January"
+  WHEN EXTRACT(MONTH FROM started_at) = 2 THEN "February"
+  WHEN EXTRACT(MONTH FROM started_at) = 3 THEN "March"
+  WHEN EXTRACT(MONTH FROM started_at) = 4 THEN "April"
+  WHEN EXTRACT(MONTH FROM started_at) = 5 THEN "May"
+  WHEN EXTRACT(MONTH FROM started_at) = 6 THEN "June"
+  WHEN EXTRACT(MONTH FROM started_at) = 7 THEN "July"
+  WHEN EXTRACT(MONTH FROM started_at) = 8 THEN "August"
+  WHEN EXTRACT(MONTH FROM started_at) = 9 THEN "September"
+  WHEN EXTRACT(MONTH FROM started_at) = 10 THEN "October"
+  WHEN EXTRACT(MONTH FROM started_at) = 11 THEN "November"
+  WHEN EXTRACT(MONTH FROM started_at) = 12 THEN "December"
+  ELSE "NA"
+  END as month,
+  EXTRACT(YEAR FROM started_at) as year,
+  Count(*) as Trips,
+  ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, MINUTE)), 0) as avg_trip_length
+FROM `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB` 
+GROUP BY
+  member_casual,
+  index,
+  year,
+  month
+ORDER BY
+   year asc,
+  index asc

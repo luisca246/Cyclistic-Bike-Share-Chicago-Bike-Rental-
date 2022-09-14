@@ -1,0 +1,19 @@
+-- Top 100 preferred ending stations
+SELECT
+  member_casual,
+  end_station_name,
+  COUNT(end_station_name) as end_number,
+  round(end_lat, 3) as lat,
+  round(end_lng, 3) as long,
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_raw_revB` 
+GROUP BY
+  end_station_name,
+  member_casual,
+  lat,
+  long
+HAVING
+  member_casual = "casual" AND end_station_name IS NOT NULL
+ORDER BY
+  end_number desc
+LIMIT 100

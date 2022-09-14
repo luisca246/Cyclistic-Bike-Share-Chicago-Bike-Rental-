@@ -1,0 +1,18 @@
+-- Top 5 preferred starting stations
+SELECT *
+ FROM (
+SELECT
+  member_casual,
+  start_station_name,
+  COUNT(start_station_name) as start_number,
+  row_number() OVER(PARTITION BY member_casual ORDER BY COUNT(start_station_name) desc) as rank -- function row_number() helps order by category
+FROM
+    `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB`
+GROUP BY
+  start_station_name,
+  member_casual
+ORDER BY
+  start_number desc
+  )
+WHERE 
+  rank <= 5

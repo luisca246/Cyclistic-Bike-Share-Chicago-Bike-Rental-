@@ -1,0 +1,19 @@
+  -- Top 100 preferred starting stations
+SELECT
+  member_casual,
+  start_station_name,
+  COUNT(start_station_name) as start_number,
+  round(start_lat, 3) as lat,
+  round(start_lng, 3) as long,
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_raw_revB` 
+GROUP BY
+  start_station_name,
+  member_casual,
+  lat,
+  long
+HAVING
+  member_casual = "casual" AND start_station_name IS NOT NULL
+ORDER BY
+  start_number desc
+LIMIT 100

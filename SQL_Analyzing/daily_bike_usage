@@ -1,0 +1,24 @@
+-- Peak days by type of customer
+SELECT  
+  EXTRACT(DAYOFWEEK FROM started_at) as index,
+  member_casual,
+  CASE
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 1 THEN "Sunday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 2 THEN "Monday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 3 THEN "Tuesday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 4 THEN "Wednesday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 5 THEN "Thursday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 6 THEN "Friday"
+    WHEN EXTRACT(DAYOFWEEK FROM started_at) = 7 THEN "Saturday"
+    ELSE "NA"
+  END as week_day,
+   ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, MINUTE)), 0) as mean_trip_time,
+  COUNT(*)/COUNT(DISTINCT DATE(started_at)) as mean_trips_per_day -- COUNT(DISTINCT DATE(started_at)) To count the number of weekdays 
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB`
+GROUP BY
+  member_casual,
+  index,
+  week_day
+ORDER BY
+  index asc

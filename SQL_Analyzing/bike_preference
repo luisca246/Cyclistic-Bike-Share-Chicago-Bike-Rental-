@@ -1,0 +1,11 @@
+-- to check bike preference by customer type
+
+SELECT  
+  member_casual,
+  rideable_type,
+  COUNT (*) as rideable_usage
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB`
+GROUP BY
+  member_casual,
+  rideable_type

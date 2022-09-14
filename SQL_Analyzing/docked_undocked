@@ -1,0 +1,17 @@
+-- preference to leave bikes docked vs undocked
+SELECT  
+  member_casual,
+  rideable_type,
+  CASE 
+    WHEN end_station_name IS NULL THEN "NO"
+    ELSE "YES"
+  END as left_docked,
+  COUNT(*) as total
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB` 
+GROUP BY
+  member_casual,
+  rideable_type,
+  left_docked
+HAVING
+  rideable_type = "electric_bike"
