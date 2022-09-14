@@ -1,0 +1,9 @@
+-- General summary for casuals & members
+SELECT  
+  member_casual,
+  ROUND(AVG(TIMESTAMP_DIFF(ended_at, started_at, MINUTE)), 0) as mean_trip_length,
+  COUNT (*) as total_trips
+FROM 
+  `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB`
+GROUP BY
+  member_casual
