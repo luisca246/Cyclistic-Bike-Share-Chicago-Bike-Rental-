@@ -5,7 +5,12 @@ SELECT
   member_casual,
   end_station_name,
   COUNT(end_station_name) as end_number,
-  row_number() OVER(PARTITION BY member_casual ORDER BY COUNT(end_station_name) desc) as rank -- function row_number() helps order by category
+  ROW_NUMBER() OVER(
+                    PARTITION BY 
+                     member_casual 
+                    ORDER BY 
+                     COUNT(end_station_name) desc
+                    ) as rank -- function row_number() helps order by category
 FROM
     `our-lacing-349918.Case_Study_Bikes.trip_data_clean_revB`
 GROUP BY
